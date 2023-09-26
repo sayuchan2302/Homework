@@ -1,4 +1,4 @@
-package Task;
+package Task_1;
 
 public class PascalTriangle {
 

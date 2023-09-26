@@ -1,4 +1,4 @@
-package Task;
+package Task_1;
 
 public class Task1_1 {
 	// S(n)=1-2+3-4+…+ ((-1)^(n+1) ).n , n>0
