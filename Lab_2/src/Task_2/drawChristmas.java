@@ -1,53 +1,42 @@
 package Task_2;
 
 public class drawChristmas {
-    private static void chris(int n) {
-        if (n <= 0) {
-            return;
-        } else {
-            chris(n - 1);
-            triangle(n);
-        }
-    }
+	public static void Christmas(int n) {
+		if (n <= 0)
+			return;
+		Christmas(n-1);
+		pattern_4(n);
+	}
 
-    private static void triangle(int n) {
-        triangleHelper(n, 0, n - 1);
-    }
+	public static void pattern_4(int n) {
+		helper(n, 1);
+	}
 
-    private static void triangleHelper(int n, int row, int spaces) {
-        if (row >= n) {
-            return;
-        }
+	public static void helper(int n, int row) {
+		if (n <= 0)
+			return;
+		printWhiteSpace(n - 1);
+		printData1(row*2-1);
+		System.out.println();
+		helper(n - 1, row + 1);
+	}
 
-        printSpaces(spaces);
-        printXs(row * 2 + 1);
+	public static void printWhiteSpace(int count) {
+		if (count <= 0)
+			return;
+		System.out.print(" ");
+		printWhiteSpace(count - 1);
+		;
+	}
 
-        System.out.println();
+	public static void printData1(int count) {
+		if (count <= 0)
+			return;
+		printData1(count - 1);
+		System.out.print("*");
+	}
 
-        triangleHelper(n, row + 1, spaces - 1);
-    }
-
-    private static void printSpaces(int count) {
-        if (count <= 0) {
-            return;
-        }
-
-        System.out.print(" ");
-
-        printSpaces(count - 1);
-    }
-
-    private static void printXs(int count) {
-        if (count <= 0) {
-            return;
-        }
-
-        System.out.print("X");
-
-        printXs(count - 1);
-    }
-
-    public static void main(String[] args) {
-        chris(3);
-    }
+	public static void main(String[] args) {
+		Christmas(5);
+	}
 }
