@@ -1,6 +1,6 @@
 package Task_2;
 
-public class OrderItem {
+public class OrderItem implements Comparable<OrderItem> {
 	private Product p;
 	private int quality;
 
@@ -21,5 +21,16 @@ public class OrderItem {
 	public Product getP() {
 		return p;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "OrderItem [p=" + p + ", quality=" + quality + "]";
+	}
+
+	@Override
+	public int compareTo(OrderItem o) {
+		// TODO Auto-generated method stub
+		return p.getId().compareTo(o.getP().getId());
+	}
+
 }

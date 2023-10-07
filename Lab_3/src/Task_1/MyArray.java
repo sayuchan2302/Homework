@@ -7,7 +7,7 @@ public class MyArray {
 		super();
 		this.array = array;
 	}
-
+	// task 1.1
 	public int iterativeLinearSearch(int target) {
 		for (int i = 0; i < this.array.length; i++) {
 			if (array[i] == target)
@@ -15,7 +15,7 @@ public class MyArray {
 		}
 		return -1;
 	}
-
+	
 	public int recursiveLinearSearch(int target) {
 		return helpertask1_1(target, 0);
 	}
@@ -29,7 +29,7 @@ public class MyArray {
 			return helpertask1_1(target, index + 1); // Recursively search the next index
 		}
 	}
-
+	// task 1.2
 	public int iterativeBinarySearch(int target) {
 		int left = 0;
 		int right = array.length - 1;

@@ -1,6 +1,6 @@
 package Task_2;
 
-public class Product {
+public class Product{
 	private String id;
 	private String name;
 	private double price;
@@ -12,11 +12,21 @@ public class Product {
 		this.price = price;
 		this.type = type;
 	}
-	public double getPrice() {
-		return price;
+	public String getId() {
+		return id;
 	}
+	
+	
 	public String getType() {
 		return type;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + " name: " + name + " price:" + price + " type:" + type ;
+	}
+	public double getPrice() {
+		return price;
 	}
 	
 }
