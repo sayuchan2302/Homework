@@ -1,10 +1,11 @@
-package Task_2;
+package Task1_4;
 
-public class Product{
+public class Product {
 	private String id;
 	private String name;
 	private double price;
 	private String type;
+
 	public Product(String id, String name, double price, String type) {
 		super();
 		this.id = id;
@@ -12,21 +13,14 @@ public class Product{
 		this.price = price;
 		this.type = type;
 	}
-	public String getId() {
-		return id;
-	}
-	
-	
-	public String getType() {
-		return type;
+
+	public double getPrice() {
+		return price;
 	}
 
 	@Override
 	public String toString() {
-		return "id: " + id + " name: " + name + " price:" + price + " type:" + type +"\n";
-	}
-	public double getPrice() {
-		return price;
+		return id + " name: " + name + " price: " + price + " type: " + type ;
 	}
 	
 }

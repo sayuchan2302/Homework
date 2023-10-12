@@ -26,7 +26,7 @@ public class OrderItem implements Comparable<OrderItem> {
 	public String toString() {
 		return "OrderItem [p=" + p + ", quality=" + quality + "]";
 	}
-
+	// compare id of Product
 	@Override
 	public int compareTo(OrderItem o) {
 		// TODO Auto-generated method stub

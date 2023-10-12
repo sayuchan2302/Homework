@@ -34,8 +34,14 @@ public class Task1_3 {
 	}
 
 	public static void main(String[] args) {
-		int[] a = { 6, 1,3, 2, 7 };
-		insertionSortRecursive(a);
-		System.out.println(Arrays.toString(a));
+		int array1[] = { 8, 9, 2, 1, 6, 0, 88 };
+		System.out.println("Input" + Arrays.toString(array1));
+		insertionSort(array1);
+		System.out.println("Output" + Arrays.toString(array1));
+		System.out.println("=================================");
+		int array2[] = { 5, 36, 4, 0, 6, 91, 2, 11 };
+		System.out.println("Input" + Arrays.toString(array2));
+		insertionSortRecursive(array2);
+		System.out.println("Output" + Arrays.toString(array2));
 	}
 }

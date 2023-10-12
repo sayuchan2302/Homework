@@ -25,7 +25,7 @@ public class Task1_1 {
 	public static void helper(int[] array, int index) {
 		if (index >= array.length)
 			return;
-		int minIndex = findMinIndex(array, index, index);
+		int minIndex = findMinIndex(array, index+1, index);
 		int temp = array[minIndex];
 		array[minIndex] = array[index];
 		array[index] = temp;
