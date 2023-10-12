@@ -1,5 +1,5 @@
 package Task1_4;
-
+	// xếp giảm dần theo giá (price )
 public class Order {
 	private OrderItem[] items;
 
@@ -37,15 +37,15 @@ public class Order {
 	public void helper(int start) {
 		if (start >= items.length - 1)
 			return;
-		int minIndex = start;
+		int maxIndex = start;
 		for (int i = start + 1; i < items.length; i++) {
-			if (items[i].getP().getPrice() < items[minIndex].getP().getPrice()) {
-				minIndex = i;
+			if (items[i].getP().getPrice() > items[maxIndex].getP().getPrice()) {
+				maxIndex = i;
 			}
 		}
 		OrderItem temp = items[start];
-		items[start] = items[minIndex];
-		items[minIndex] = temp;
+		items[start] = items[maxIndex];
+		items[maxIndex] = temp;
 		helper(start + 1);
 	}
 
@@ -67,7 +67,7 @@ public class Order {
 	}
 
 	public void quickSortHelper(int left, int right) {
-		if (left >= right)
+		if (left > right)
 			return;
 		OrderItem pivot = items[(left + right) / 2];
 		int pivotIndex = partitions(left, right, pivot);
