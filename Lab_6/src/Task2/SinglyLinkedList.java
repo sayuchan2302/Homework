@@ -1,5 +1,6 @@
 package Task2;
 
+import java.net.SecureCacheResponse;
 import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<E> {
@@ -107,5 +108,20 @@ public class SinglyLinkedList<E> {
 
 		size--;
 		return temp;
+	}
+
+	public void printNode() {
+		Node<E> current = head;
+		while (current != null) {
+			if (current.getNext() == null) {
+				System.out.print(current.getData());
+				break ;
+			}else {
+				System.out.print(current.getData()+"->");
+				current = current.getNext();
+			}
+		}
+		
+		System.out.println();
 	}
 }

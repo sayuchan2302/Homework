@@ -15,13 +15,14 @@ public class MyArrayList<E> {
 
 	public MyArrayList(int capacity) {
 		this.elements = (E[]) new Object[capacity];
+
 	}
 
 	// creates an array of double-size if the array of elements is full
 	public void growSize() {
 		if (this.elements.length == this.size) {
 			E[] newArray = (E[]) new Object[this.size * 2];
-			System.arraycopy(this.elements, 0, newArray, 0, this.elements.length);
+			System.arraycopy(this.elements, 0, newArray, 0, this.size);
 			this.elements = newArray;
 		}
 	}
@@ -57,11 +58,8 @@ public class MyArrayList<E> {
 	}
 
 	// It is used to append the specified element at the end of a list.
-
 	public boolean add(E e) {
-		if (this.elements.length == size) {
-			growSize();
-		}
+		growSize();
 		elements[size++] = e;
 		return true;
 	}
@@ -83,18 +81,31 @@ public class MyArrayList<E> {
 			size++;
 		}
 	}
-
 	// Removes and returns the element at index i, shifting subsequent elements
 	// earlier.
+//	public E remove(int i) throws IndexOutOfBoundsException {
+//		if (i < 0 || i >= this.elements.length) {
+//			throw new IndexOutOfBoundsException("Index out of bounds");
+//		} else {
+//			E elementRemove = elements[i];
+////			for (int j = i; j < this.size - 1; j++) {
+////				elements[j] = elements[j + 1];
+////			}
+//			size--;
+//			System.arraycopy(this.elements, i , this.elements, i+1, this.size  - 1);
+//			return elementRemove;
+//		}
+//	}
+
 	public E remove(int i) throws IndexOutOfBoundsException {
 		if (i < 0 || i >= this.elements.length) {
 			throw new IndexOutOfBoundsException("Index out of bounds");
 		} else {
 			E elementRemove = elements[i];
-//			for (int j = i; j < this.size - 1; j++) {
-//				elements[j] = elements[j + 1];
-//			}
-			System.arraycopy(this.elements, i + 1, this.elements, i, this.size - i - 1);
+			size--;
+			for (int j = i; j < size; j++) {
+				elements[j] = elements[j + 1];
+			}
 			return elementRemove;
 		}
 	}
@@ -112,7 +123,7 @@ public class MyArrayList<E> {
 	public int lastIndexOf(Object o) {
 		for (int i = size - 1; i >= 0; i--) {
 			if (elements[i].equals(o)) {
-				return 1;
+				return i;
 			}
 		}
 		return -1;
@@ -122,16 +133,21 @@ public class MyArrayList<E> {
 	// the correct order.
 	public E[] toArray() {
 		E[] arr = (E[]) new Object[this.size];
-		for (int i = 0; i < this.size; i++) {
-			arr[i] = elements[i];
-		}
+		System.arraycopy(this.elements, 0, arr, 0, size);
 		return arr;
 	}
 
 	// It is used to return a shallow copy of an ArrayList.
 	public MyArrayList<E> clone() {
 
-		return null;
+		try {
+			MyArrayList<E> clone = (MyArrayList<E>) super.clone();
+			clone.elements = this.elements.clone();
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			// TODO: handle exception
+			throw new AssertionError();
+		}
 	}
 
 	// It returns true if the list contains the specified element
@@ -156,10 +172,10 @@ public class MyArrayList<E> {
 	}
 
 	// It is used to remove the first occurrence of the specified element.
-	public boolean remove(E e) {
+	public boolean removeElement(E e) {
 		for (int i = 0; i < size; i++) {
 			if (elements[i].equals(e)) {
-				remove(e);
+				remove(i);
 				return true;
 
 			}
@@ -170,9 +186,17 @@ public class MyArrayList<E> {
 	// It is used to sort the elements of the list on the basis of specified
 	// comparator.
 	public void sort(Comparator<E> c) {
-
-		E[] temp = this.elements.clone();
-		Arrays.sort(temp, c);
-		System.arraycopy(temp, 0, this.elements, 0, this.size);
-	}
+        if (size == 0) {
+            return;
+        }
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                if (c.compare(elements[i], elements[j]) > 0) {
+                    E temp = elements[i];
+                    elements[i] = elements[j];
+                    elements[j] = temp;
+                }
+            }
+        }
+    }
 }
