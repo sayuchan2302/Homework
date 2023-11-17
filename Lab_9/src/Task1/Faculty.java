@@ -57,26 +57,12 @@ public class Faculty {
 		return result;
 	}
 
-//	public Set<Course> filterCourses(String type) {
-//		Set<Course> filteredCourses = new HashSet<>();
-//		
-//		for (Course course : courses) {
-//			if (course.getType().equals(type)) {
-//				filteredCourses.add(course);
-//			}
-//		}
-//		List<Course> convertList = new ArrayList<>(filteredCourses);
-//		Comparator<Course> compa = new Comparator<Course>() {
-//
-//			@Override
-//			public int compare(Course o1, Course o2) {
-//				// TODO Auto-generated method stub
-//				return Integer.compare(o2.sizeArray(), o1.sizeArray());
-//			}
-//		};
-//		Collections.sort(convertList, compa);
-//		return new HashSet<>(convertList);
+//	public Map<Integer, List<Student>> groupStudentsByYear() {
+//	    return courses.stream()
+//	            .flatMap(course -> course.getStudents().stream())
+//	            .collect(Collectors.groupingBy(Student::getYear));
 //	}
+
 	public Set<Course> filterCourses(String type) {
 		Set<Course> sorted = new TreeSet<>(Comparator.comparingInt(o -> -o.getStudents().size()));
 		for (Course course : courses) {

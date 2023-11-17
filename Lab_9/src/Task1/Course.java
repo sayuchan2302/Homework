@@ -22,13 +22,21 @@ public class Course {
 	public int sizeArray() {
 		return this.students.size();
 	}
-	
+
 	public List<Student> getStudents() {
 		return students;
 	}
-	
+
 	public String getType() {
 		return type;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	@Override
