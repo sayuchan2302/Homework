@@ -28,19 +28,17 @@ public class MyFIFO_App {
 	public static <E> void mirror(Queue<E> input) {
 		// TODO
 		if (input.isEmpty()) return ;
-//		Stack<E> temp = new Stack<>();
-//		Queue<E> result = new LinkedList<>(input);
-//		while (!input.isEmpty()) {
-//			temp.add(input.poll());
-//		}
-//		while (!temp.isEmpty()) {
-//			result.add(temp.pop());
-//		}
-//		while (!result.isEmpty()) {
-//			input.add(result.poll());
-//		}
-		for (int i = 0 ; i < input.size() ; i ++) {
-			input.add(input.poll());
+		Stack<E> temp = new Stack<>();
+		Queue<E> result = new LinkedList<>(input);
+		while (!input.isEmpty()) {
+			temp.add(input.poll());
 		}
+		while (!temp.isEmpty()) {
+			result.add(temp.pop());
+		}
+		while (!result.isEmpty()) {
+			input.add(result.poll());
+		}
+		
 	}
 }

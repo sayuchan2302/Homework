@@ -41,42 +41,44 @@ public class MyLIFO_App {
 
 	// This method evaluates the value of an expression
 	// i.e. 51 + (54 *(3+2)) = 321
-	public static int evaluateExpression(String expression) {
+	public static double evaluateExpression(String expression) {
 		if (expression == null || expression.isEmpty()) {
 			throw new IllegalArgumentException("Invalid expression");
 		}
-
-		Stack<Integer> values = new Stack<>();
+		Stack<Double> values = new Stack<>();
 		Stack<Character> operators = new Stack<>();
 
 		for (int i = 0; i < expression.length(); i++) {
 			char c = expression.charAt(i);
 
 			if (c == ' ') {
-				continue; // Skip whitespace
-			} else if (Character.isDigit(c)) {
-				int num = 0;
-				while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-					num = num * 10 + (expression.charAt(i) - '0');
+				continue;
+			} // Skip whitespace
+			else if (Character.isDigit(c) || c == '.') {
+				StringBuilder numStr = new StringBuilder();
+				while (i < expression.length()
+						&& (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
+					numStr.append(expression.charAt(i));
 					i++;
 				}
 				i--; // Move back one step as the loop will increment i
-				values.push(num);
+				values.push(Double.parseDouble(numStr.toString()));
+
 			} else if (c == '(') {
 				operators.push(c);
 			} else if (c == ')') {
 				while (operators.peek() != '(') {
 					char operator = operators.pop();
-					int b = values.pop();
-					int a = values.pop();
+					Double b = values.pop();
+					Double a = values.pop();
 					values.push(calculator(operator, a, b));
 				}
 				operators.pop(); // Discard the '(' from the stack
 			} else if (isOperator(c)) {
 				while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(c)) {
 					char operator = operators.pop();
-					int b = values.pop();
-					int a = values.pop();
+					Double b = values.pop();
+					Double a = values.pop();
 					values.push(calculator(operator, a, b));
 				}
 				operators.push(c);
@@ -85,12 +87,18 @@ public class MyLIFO_App {
 
 		while (!operators.isEmpty()) {
 			char operator = operators.pop();
-			int b = values.pop();
-			int a = values.pop();
+			Double b = values.pop();
+			Double a = values.pop();
 			values.push(calculator(operator, a, b));
 		}
 
 		return values.pop();
+	}
+
+	public static double evaluateExpression1(String expression) {
+		if (expression.equals(" ") || expression == null)
+			return 0.0;
+		return 0.0;
 	}
 
 	private static boolean isOperator(char c) {
@@ -109,7 +117,7 @@ public class MyLIFO_App {
 		return -1;
 	}
 
-	private static int calculator(char operator, int a, int b) {
+	private static double calculator(char operator, double a, double b) {
 		switch (operator) {
 		case '+':
 			return a + b;
@@ -122,6 +130,6 @@ public class MyLIFO_App {
 				throw new ArithmeticException("div by zero");
 			return a / b;
 		}
-		return 0;
+		return 0.0;
 	}
 }

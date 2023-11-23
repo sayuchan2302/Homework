@@ -13,7 +13,9 @@ public class TestStack {
 		String input2 = "{)))";
 		System.out.println(lifo.isCorrect(input1));
 		System.out.println(lifo.isCorrect(input2));
-		String calculator = "(12x10)/5+100";
-		System.out.println(lifo.evaluateExpression(calculator));
+		String calculator1 = "51+(54 x(3+2))";
+		System.out.println(lifo.evaluateExpression(calculator1));
+		String calculator2 = "(2.4x6.5)";
+		System.out.println(lifo.evaluateExpression(calculator2));
 	}
 }
