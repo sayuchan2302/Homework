@@ -27,7 +27,8 @@ public class MyFIFO_App {
 	// front [a, b, c, c, b, a] back
 	public static <E> void mirror(Queue<E> input) {
 		// TODO
-		if (input.isEmpty()) return ;
+		if (input.isEmpty())
+			return;
 		Stack<E> temp = new Stack<>();
 		Queue<E> result = new LinkedList<>(input);
 		while (!input.isEmpty()) {
@@ -39,6 +40,6 @@ public class MyFIFO_App {
 		while (!result.isEmpty()) {
 			input.add(result.poll());
 		}
-		
+
 	}
 }
