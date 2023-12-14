@@ -1,9 +1,8 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 public class BST<E extends Comparable<E>> {
 	private BNode<E> root;
@@ -36,7 +35,7 @@ public class BST<E extends Comparable<E>> {
 				} else {
 					if (temp.getLeft() == null) {
 						System.out.println("add value " + e + " to left: " + temp.getData());
-						temp.setRight(newValue);
+						temp.setLeft(newValue);
 						break;
 					} else {
 						temp = temp.getLeft();
@@ -147,7 +146,6 @@ public class BST<E extends Comparable<E>> {
 
 	// Check whether element e is in BST
 	public boolean contains(E e) {
-		// TODO
 		if (root == null)
 			return false;
 		BNode<E> temp = root;
@@ -158,6 +156,22 @@ public class BST<E extends Comparable<E>> {
 				temp = temp.getRight();
 			} else {
 				temp = temp.getLeft();
+			}
+		}
+		return false;
+	}
+
+	public boolean contains1(E e) {
+		if (root == null)
+			return false;
+		BNode<E> temp = root;
+		while (temp != null) {
+			if (temp.getData().compareTo(e) == 0)
+				return true;
+			if (temp.getData().compareTo(e) < 0) {
+				temp = temp.getLeft();
+			} else {
+				temp = temp.getRight();
 			}
 		}
 		return false;
@@ -197,27 +211,33 @@ public class BST<E extends Comparable<E>> {
 	private BNode<E> helperRemove(BNode<E> currentNode, E value) {
 		if (currentNode == null)
 			return null;
+
 		if (value.compareTo(currentNode.getData()) > 0) {
 			currentNode.setRight(helperRemove(currentNode.getRight(), value));
+		} else if (value.compareTo(currentNode.getData()) < 0) {
+			currentNode.setLeft(helperRemove(currentNode.getLeft(), value));
 		} else {
-			if (value.compareTo(currentNode.getData()) < 0) {
+			if (currentNode.getLeft() == null && currentNode.getRight() == null)
+				return null;
+			else if (currentNode.getLeft() == null)
+				return currentNode.getRight();
+			else if (currentNode.getRight() == null)
+				return currentNode.getLeft();
 
-				currentNode.setLeft(helperRemove(currentNode.getLeft(), value));
-			} else {
-				if (currentNode.getLeft() == null && currentNode.getRight() == null)
-					return null;
-
-				if (currentNode.getLeft() != null && currentNode == null)
-					return currentNode.getLeft();
-
-				if (currentNode.getLeft() == null && currentNode.getRight() != null)
-					return currentNode.getRight();
-				BNode<E> leftMostNode = findLeftModeNode(currentNode.getRight());
-				currentNode = leftMostNode;
-				currentNode.setRight(helperRemove(currentNode.getRight(), leftMostNode.getData()));
-			}
+			BNode<E> leftMostNode = findLeftMostNode(currentNode.getRight());
+			currentNode.setData(leftMostNode.getData());
+			currentNode.setRight(helperRemove(currentNode.getRight(), leftMostNode.getData()));
 		}
+		return currentNode;
+	}
 
+	private BNode<E> findLeftMostNode(BNode<E> cur) {
+		if (cur == null)
+			return null;
+		while (cur.getLeft() != null) {
+			cur = cur.getLeft();
+		}
+		return cur;
 	}
 
 	private BNode<E> findLeftModeNode(BNode<E> cur) {
@@ -232,13 +252,60 @@ public class BST<E extends Comparable<E>> {
 
 	// get the descendants of a node
 	public List<E> descendants(E data) {
-		// TODO
-		return null;
+		List<E> result = new ArrayList<>();
+		BNode<E> node = findNode(root, data);
+		if (node != null) {
+			getDescendent(node, result);
+		}
+		return result;
+	}
+
+	private void getDescendent(BNode<E> currentNode, List<E> result) {
+		if (currentNode == null)
+			return;
+		if (currentNode.getLeft() != null) {
+			result.add(currentNode.getLeft().getData());
+			getDescendent(currentNode.getLeft(), result);
+		}
+		if (currentNode.getRight() != null) {
+			result.add(currentNode.getRight().getData());
+			getDescendent(currentNode.getRight(), result);
+		}
+	}
+
+	private BNode<E> findNode(BNode<E> currentNode, E data) {
+		if (currentNode == null || currentNode.getData().equals(data)) {
+			return currentNode;
+		}
+
+		if (currentNode.getData().compareTo(data) > 0) {
+			return findNode(currentNode.getLeft(), data);
+		} else {
+			return findNode(currentNode.getRight(), data);
+		}
 	}
 
 	// get the ancestors of a node
 	public List<E> ancestors(E data) {
-		// TODO
-		return null;
+		List<E> result = new ArrayList<>();
+		findAncestors(root, data, result);
+		return result;
+	}
+
+	private boolean findAncestors(BNode<E> currentNode, E data, List<E> result) {
+		if (currentNode == null) {
+			return false;
+		}
+
+		if (currentNode.getData().equals(data)) {
+			return true;
+		}
+
+		if (findAncestors(currentNode.getLeft(), data, result) || findAncestors(currentNode.getRight(), data, result)) {
+			result.add(currentNode.getData());
+			return true;
+		}
+
+		return false;
 	}
 }

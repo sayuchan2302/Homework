@@ -40,5 +40,39 @@ public class BNode<E extends Comparable<E>> {
 	public void setRight(BNode<E> right) {
 		this.right = right;
 	}
-		
+
+	// left - node - right
+	// display BST using inorder approach
+	public void inorder() {
+		if (left != null) {
+			left.inorder();
+		}
+		System.out.print(data + " ");
+		if (right != null) {
+			right.inorder();
+		}
+	}
+
+	// Node - left - right
+	public void preorder() {
+		System.out.print(data + " ");
+		if (left != null) {
+			left.preorder();
+		}
+		if (right != null) {
+			right.preorder();
+		}
+	}
+
+	// left - right-Node
+	// display BST using postorder approach
+	public void postorder() {
+		if (left != null) {
+			left.postorder();
+		}
+		if (right != null) {
+			right.postorder();
+		}
+		System.out.print(data + " ");
+	}
 }
